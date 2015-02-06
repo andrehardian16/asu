@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="red100">#FFCDD2</color>
+    <color name="red50">#FFEBEE</color>
+    <color name="blue">#0000FF</color>
+    <color name="pink500">#E91E63</color>
+    <color name="black">#000000</color>
+    <color name="lightGreen100">#DCEDC8</color>
+</resources>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">App Store</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="option">Option</string>
+    <string name="order">Order</string>
+    <string name="map">Maps</string>
+    <string name="add">Add</string>
+    <string name="addEmployee">Add Employee</string>
+    <string name="inputUser">Input Username</string>
+    <string name="inputPass">Input Password</string>
+    <string name="sync">Sync</string>
+    <string name="logout">Logout</string>
+    <string name="title_activity_login">Login</string>
+    <string name="user">UserName</string>
+    <string name="pass">Password</string>
+    <string name="alert_login_pass">incorrect password</string>
+    <string name="alert_user_not_register">wrong username</string>
+    <string name="register">Register</string>
+    <string name="title_activity_regist">Register</string>
+    <string name="title_activity_additional_store">AdditionalStore</string>
+    <string name="insertStoreName">Store Name Must Be Stuffed</string>
+    <string name="address">Address</string>
+    <string name="storeName">Store Name</string>
+    <string name="phone">Telephone</string>
+    <string name="email">Email</string>
+    <string name="name_employee">Name</string>
+    <string name="position">Position</string>
+    <string name="input_store">Input Data Store</string>
+    <string name="input_category">Select Category</string>
+    <string name="input_position">Input Position</string>
+    <string name="save">Save Data</string>
+    <string name="max">Insert Picture</string>
+    <string name="noData">no data</string>
+    <string name="addPhoto">Add Photo</string>
+    <string name="notExternal">images not in external memory</string>
+    <string name="images">Image</string>
+    <string name="dataStore">Data Store</string>
+    <string name="available">Data Is Exist</string>
+    <string name="delete">Delete Data?</string>
+    <string name="login">Log In</string>
+    <string name="GpsSetting">Setting GPS</string>
+    <string name="gpsNotActive">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="detail">Detail Store</string>
+    <string name="history">History</string>
+    <string name="lastVisit">Last Visit</string>
+    <string name="category">Category Store</string>
+    <string name="search">Search</string>
+    <string name="insertData">Insert Data</string>
+    <string name="editData">Edit Data</string>
+    <string name="editStore">Edit Data Store</string>
+    <string name="change_category">Change Category</string>
+    <string name="old">Old Category</string>
+    <string name="newCat">New Category</string>
+    <string name="code">Code    : </string>
+    <string name="name">Name   : </string>
+    <string name="stock">Stock  : </string>
+    <string name="price">Price  : </string>
+    <string name="quantity">Quantity : </string>
+    <string name="quantityTotal">Total Quantity :</string>
+    <string name="priceTotal">Total Price :</string>
+    <string name="alertAddItem">Data is exist</string>
+    <string name="buyItem">Do You Want To Buy Item ??</string>
+    <string name="success">Success</string>
+    <string name="rp">Rp . </string>
+
+    <string-array name="category">
+        <item>Big Store</item>
+        <item>Small Store</item>
+    </string-array>
+    <string-array name="optionPict">
+        <item>Take Photo</item>
+        <item>Choose From Gallery</item>
+        <item>Cancel</item>
+    </string-array>
+
+    <string name="title_activity_detail_store">DetailStore</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_order">Order</string>
+    <string name="title_activity_detail_history">DetailHistory</string>
+    <string name="title_activity_summary_order">SummaryOrder</string>
+
+    <string-array name="codeOrder">
+        <item>123</item>
+        <item>234</item>
+        <item>345</item>
+    </string-array>
+    <string-array name="nameOrder">
+        <item>Sepeda</item>
+        <item>Motor</item>
+        <item>Baju</item>
+    </string-array>
+
+    <integer-array name="stock">
+        <item>10</item>
+        <item>55</item>
+        <item>70</item>
+    </integer-array>
+    <integer-array name="price">
+        <item>1000000</item>
+        <item>20000000</item>
+        <item>200000</item>
+    </integer-array>
+
+    <string name="title_activity_zbar">ZBarActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_google_play_services">GooglePlayServicesActivity</string>
+
+</resources>

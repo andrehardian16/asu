@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/red100"
+                  android:orientation="vertical">
+
+        <View android:layout_width="match_parent"
+              android:layout_height="2dp"
+              style="?attr/dividerHorizontal"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <ImageView android:layout_width="@dimen/widthIcon"
+                   android:layout_height="@dimen/heightIcon"
+                   android:background="@drawable/user"/>
+        <EditText android:layout_width="@dimen/widthPopUpEditText"
+                  android:layout_height="wrap_content"
+                  android:hint="@string/name_employee"
+                  android:textColorHint="@color/black"
+                  android:textColor="@color/black"
+                  android:id="@+id/nameEmployeeInsert"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/red100"
+                  android:orientation="vertical">
+
+        <View android:layout_width="match_parent"
+              android:layout_height="2dp"
+              style="?attr/dividerHorizontal"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <ImageView android:layout_width="@dimen/widthIcon"
+                   android:layout_height="@dimen/heightIcon"
+                   android:background="@drawable/suitcase24"/>
+        <EditText android:layout_width="@dimen/widthPopUpEditText"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/black"
+                  android:id="@+id/positionEmployeeInsert"
+                  android:textColorHint="@color/black"
+                  android:hint="@string/input_position"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/red100"
+                  android:orientation="vertical">
+
+        <View android:layout_width="match_parent"
+              android:layout_height="2dp"
+              style="?attr/dividerHorizontal"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <ImageView android:layout_width="@dimen/widthIcon"
+                   android:layout_height="@dimen/heightIcon"
+                   android:background="@drawable/telephone"/>
+        <EditText android:layout_width="@dimen/widthPopUpEditText"
+                  android:textColor="@color/black"
+                  android:id="@+id/phoneEmployeeInsert"
+                  android:textColorHint="@color/black"
+                  android:hint="@string/phone"
+                  android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>
