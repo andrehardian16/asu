@@ -44,6 +44,7 @@ public class DaoDetailHistory extends BaseDao<ModelDetailHistory> implements Cur
         valuesData.put(ROW_NAME_DETAIL_HISTORY, modelDetailHistory.getNameDetailHistory());
         valuesData.put(ROW_PRICE, modelDetailHistory.getPrice());
         valuesData.put(ROW_QUANTITY, modelDetailHistory.getQuantity());
+        valuesData.put(ROW_LAST_DATE,modelDetailHistory.getLastDate());
         return valuesData;
     }
 
@@ -73,18 +74,27 @@ public class DaoDetailHistory extends BaseDao<ModelDetailHistory> implements Cur
         return super.createData(tableName, contentValues);
     }
 
-    public ModelDetailHistory getData(String selection1, String selection2, String[] arg) {
-        String selection = selection1 + " = ? AND " + selection2 + " = ?";
-        Cursor cursor = database.query(true, tableName, allColumns, selection, arg, null, null, null, null);
-        resourceCursor.setCursor(cursor);
-        cursor.moveToFirst();
-        if (cursor.moveToFirst() && cursor != null) {
-            if (cursor.getCount() > 0) {
-                ModelDetailHistory modelDetailHistory = cursorData();
-                return modelDetailHistory;
+    public ArrayList<ModelDetailHistory> getData(String selection1, String selection2, String[] arg) {
+        String selection = selection1 + " = ? AND " + selection2 + " = ? ";
+        ArrayList<ModelDetailHistory> modelDetailHistories = new ArrayList<ModelDetailHistory>();
+        Cursor cursor;
+        try{
+            cursor = database.query(tableName, allColumns, selection, arg, null, null, null, null);
+            resourceCursor.setCursor(cursor);
+            cursor.moveToFirst();
+            try{
+                if (cursor.moveToFirst() && cursor != null) {
+                    do {
+                        ModelDetailHistory modelDetailHistory = cursorData();
+                        modelDetailHistories.add(modelDetailHistory);
+                    }while (cursor.moveToNext());
+                }
+            }finally {
+                cursor.close();
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        cursor.close();
-        return null;
+        return modelDetailHistories;
     }
 }

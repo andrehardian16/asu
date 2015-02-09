@@ -49,9 +49,9 @@ public class AdapterHistory extends BaseAdapter{
 
         if (historyData != null && historyData.size() != 0){
             lastDate.setText(historyData.get(i).getLastDate());
-            quantity.setText(historyData.get(i).getQuantity());
-            total.setText(historyData.get(i).getTotal());
+            quantity.setText(""+historyData.get(i).getQuantity());
+            total.setText(""+historyData.get(i).getTotal());
         }
-        return null;
+        return view;
     }
 }

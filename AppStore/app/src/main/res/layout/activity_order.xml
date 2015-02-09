@@ -12,14 +12,18 @@
                   android:layout_height="wrap_content"
                   android:orientation="horizontal">
         <Button android:layout_width="wrap_content"
-                android:layout_height="@dimen/heightIcon"
+                android:text="@string/qrCode"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
                 android:id="@+id/qrCode"/>
         <EditText android:layout_width="0dp"
                   android:layout_height="wrap_content"
                   android:hint="@string/search"
-                  android:id="@+id/search" android:layout_weight="1"/>
-        <Button android:layout_width="wrap_content"
+                  android:id="@+id/search"
+                  android:layout_weight="1"/>
+        <Button android:layout_width="@dimen/widthIcon"
                 android:layout_height="@dimen/heightIcon"
+                android:background="@drawable/search"
                 android:id="@+id/btnSearch"/>
     </LinearLayout>
     <LinearLayout android:layout_width="wrap_content"
@@ -27,6 +31,7 @@
                   android:layout_weight="1">
         <ListView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
+                  android:descendantFocusability="blocksDescendants"
                   android:id="@+id/orderStore"></ListView>
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent"
@@ -34,7 +39,10 @@
                   android:background="@color/lightGreen100"
                   android:orientation="horizontal">
         <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/btnOrder"/>
+                android:layout_height="wrap_content"
+                android:text="@string/order"
+                android:textColor="@color/black"
+                android:id="@+id/btnOrder"/>
         <LinearLayout android:layout_width="0dp"
                       android:layout_height="wrap_content"
                       android:layout_weight="1"
@@ -63,7 +71,10 @@
             </LinearLayout>
         </LinearLayout>
         <Button android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/summaryOrder"/>
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:textColor="@color/black"
+                android:id="@+id/summaryOrder"/>
     </LinearLayout>
 
 </LinearLayout>

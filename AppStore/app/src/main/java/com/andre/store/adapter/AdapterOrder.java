@@ -1,15 +1,15 @@
 package com.andre.store.adapter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 import com.andre.store.models.ModelOrder;
+import com.andre.store.view.Order;
 import com.andre.store.view.R;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by Andre on 2/3/2015.
  */
-public class AdapterOrder extends BaseAdapter implements View.OnClickListener {
+public class AdapterOrder extends BaseAdapter{
     Context context;
     ArrayList<ModelOrder> orderArrayList = new ArrayList<ModelOrder>();
 
@@ -42,7 +42,7 @@ public class AdapterOrder extends BaseAdapter implements View.OnClickListener {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         view = layoutInflater.inflate(R.layout.adapter_order_store, viewGroup, false);
         TextView codeOrder;
@@ -51,6 +51,7 @@ public class AdapterOrder extends BaseAdapter implements View.OnClickListener {
         TextView stockOrder;
         TextView quantityOrder;
         TextView buyOrder;
+        Button delOrder;
 
         codeOrder = (TextView) view.findViewById(R.id.codeOrder);
         nameOrder = (TextView) view.findViewById(R.id.nameOrder);
@@ -58,8 +59,15 @@ public class AdapterOrder extends BaseAdapter implements View.OnClickListener {
         stockOrder = (TextView) view.findViewById(R.id.stockOrder);
         quantityOrder = (TextView) view.findViewById(R.id.quantityOrder);
         buyOrder = (TextView) view.findViewById(R.id.buy);
+        delOrder = (Button)view.findViewById(R.id.delOrder);
+        delOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                orderArrayList.remove(i);
+                notifyDataSetChanged();
+            }
+        });
 
-        quantityOrder.setOnClickListener(this);
         if (orderArrayList != null) {
             codeOrder.setText(orderArrayList.get(i).getCode());
             nameOrder.setText(orderArrayList.get(i).getNameOrder());
@@ -75,8 +83,7 @@ public class AdapterOrder extends BaseAdapter implements View.OnClickListener {
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
 
-    }
+
+
 }

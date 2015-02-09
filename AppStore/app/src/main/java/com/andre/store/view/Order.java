@@ -1,12 +1,15 @@
 package com.andre.store.view;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.*;
 import android.widget.*;
 import com.andre.store.adapter.AdapterListOrder;
@@ -22,15 +25,18 @@ import net.sourceforge.zbar.Symbol;
 import java.util.ArrayList;
 
 
-public class Order extends ActionBarActivity implements View.OnClickListener {
+public class Order extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     ArrayList<ModelOrder> orderArrayList = new ArrayList<ModelOrder>();
     ArrayList<ModelOrder> order = new ArrayList<ModelOrder>();
     ListView orderStore;
     TextView totalPriceItem;
     TextView totalQuantityItem;
+    EditText search;
     Button qrCode;
     Button btnOrder;
     Button summaryOrder;
+    Button searchBtn;
+    ListView listOrder;
 
     @Override
 
@@ -43,11 +49,17 @@ public class Order extends ActionBarActivity implements View.OnClickListener {
         totalPriceItem = (TextView) findViewById(R.id.totalItem);
         totalQuantityItem = (TextView) findViewById(R.id.quantityItem);
         summaryOrder = (Button)findViewById(R.id.summaryOrder);
+        searchBtn = (Button)findViewById(R.id.btnSearch);
+        search = (EditText)findViewById(R.id.search);
         summaryOrder.setOnClickListener(this);
         btnOrder.setOnClickListener(this);
         qrCode.setOnClickListener(this);
         dataOrder();
         onListOrder(order);
+        orderStore.setOnItemClickListener(this);
+        searchBtn.setOnClickListener(this);
+        search.setOnClickListener(this);
+
     }
 
     private void dataOrder() {
@@ -79,7 +91,7 @@ public class Order extends ActionBarActivity implements View.OnClickListener {
         AlertDialog.Builder select = new AlertDialog.Builder(this);
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         final View view = layoutInflater.inflate(R.layout.list_order, null);
-        final ListView listOrder = (ListView) view.findViewById(R.id.orderList);
+        listOrder = (ListView) view.findViewById(R.id.orderList);
         AdapterListOrder adapterListOrder = new AdapterListOrder(this, orderArrayList);
         listOrder.setAdapter(adapterListOrder);
         select.setView(view);
@@ -95,7 +107,8 @@ public class Order extends ActionBarActivity implements View.OnClickListener {
                 list.addAll(order);
                 for (ModelOrder modelOrder1 : order) {
                     if (modelOrder1.getCode().equals(modelOrder.getCode())) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.alertAddItem), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.alertAddItem),
+                                Toast.LENGTH_LONG).show();
                         return;
                     }
                 }
@@ -138,6 +151,31 @@ public class Order extends ActionBarActivity implements View.OnClickListener {
                 break;
             case R.id.qrCode:
                 scanQRCode();
+                break;
+            case R.id.search:
+                search.setText("");
+                break;
+            case R.id.btnSearch:
+                addOnFilter(search.getText().toString());
+                break;
+        }
+    }
+
+    public void addOnFilter(String code){
+        for (ModelOrder modelOrder:orderArrayList){
+            if (modelOrder.getCode().equals(code)){
+                for (ModelOrder modelOrder1 : order) {
+                    if (modelOrder1.getCode().equals(modelOrder.getCode())) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.alertAddItem), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                }
+                order.add(modelOrder);
+                onListOrder(order);
+                return;
+            }else {
+                Toast.makeText(getApplicationContext(),getString(R.string.noData),Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -146,7 +184,6 @@ public class Order extends ActionBarActivity implements View.OnClickListener {
         orderStore.setAdapter(adapterOrder);
         int totalBuy = 0;
         int totalQuantity = 0;
-
         for (int total = 0; total < list.size(); total++) {
             totalBuy += ((list.get(total).getPrice()) * (list.get(total).getQuantity()));
             totalQuantity += (list.get(total).getQuantity());
@@ -155,6 +192,33 @@ public class Order extends ActionBarActivity implements View.OnClickListener {
         totalQuantityItem.setText("" + totalQuantity);
         adapterOrder.notifyDataSetChanged();
     }
+
+    private void dialogQuantity(final int pos){
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        final View view = layoutInflater.inflate(R.layout.alert_quantity,null);
+        final EditText quantity = (EditText) view.findViewById(R.id.textAlert);
+        quantity.setText(""+order.get(pos).getQuantity());
+        AlertDialog.Builder alertQuantity = new AlertDialog.Builder(this);
+        alertQuantity.setMessage(getString(R.string.alertQuantity));
+        alertQuantity.setView(view);
+        alertQuantity.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                order.get(pos).setQuantity(Integer.parseInt(quantity.getText().toString()));
+                onListOrder(order);
+            }
+        });
+        alertQuantity.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        alertQuantity.create();
+        alertQuantity.show();
+    }
+
+
 
 
     @Override
@@ -236,4 +300,12 @@ public class Order extends ActionBarActivity implements View.OnClickListener {
             toast.show();
         }
     }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        dialogQuantity(i);
+    }
+
+
 }

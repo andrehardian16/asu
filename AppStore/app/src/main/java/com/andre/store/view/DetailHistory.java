@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import com.andre.store.adapter.AdapterDetailHistory;
 import com.andre.store.dao.DaoDetailHistory;
+import com.andre.store.fragment.Detail;
 import com.andre.store.models.ModelDetailHistory;
 import com.andre.store.models.ModelHistory;
 
@@ -15,18 +17,16 @@ import java.util.ArrayList;
 
 public class DetailHistory extends ActionBarActivity {
     ListView listDetailHistory;
-    ArrayList<ModelDetailHistory> dataDetailHistory = new ArrayList<ModelDetailHistory>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_history);
         listDetailHistory = (ListView) findViewById(R.id.listDetailHistory);
+        dataDetail();
     }
 
-    private void adapter_detail_history() {
-
-    }
 
     private void dataDetail() {
         new AsyncTask<Void, Void, ArrayList<ModelDetailHistory>>() {
@@ -37,25 +37,25 @@ public class DetailHistory extends ActionBarActivity {
                 String lastDate = bundle.getString("lastDate");
                 String idStore = String.valueOf(bundle.getInt("idStore"));
                 String[] arg = {idStore, lastDate};
-                ArrayList<ModelDetailHistory> listDetail = new ArrayList<ModelDetailHistory>();
-                ModelDetailHistory modelDetailHistory = new ModelDetailHistory();
                 try {
                     daoDetailHistory.readData();
-                    listDetail.add(daoDetailHistory.getData(daoDetailHistory.ID_STORE,
-                            daoDetailHistory.ROW_LAST_DATE, arg));
-                    return listDetail;
+                                  return daoDetailHistory.getData(daoDetailHistory.ID_STORE,
+                            daoDetailHistory.ROW_LAST_DATE, arg);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
                     daoDetailHistory.close();
                 }
-                return listDetail;
+                return null;
             }
 
             @Override
             protected void onPostExecute(ArrayList<ModelDetailHistory> modelDetailHistories) {
                 if (modelDetailHistories != null) {
-                    dataDetailHistory = modelDetailHistories;
+                    AdapterDetailHistory adapterDetailHistory = new AdapterDetailHistory(DetailHistory.this,
+                            modelDetailHistories);
+                    listDetailHistory.setAdapter(adapterDetailHistory);
+                    adapterDetailHistory.notifyDataSetChanged();
                 }
             }
         }.execute();

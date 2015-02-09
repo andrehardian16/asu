@@ -8,6 +8,7 @@
                   android:orientation="vertical">
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"
+                  android:textColor="@color/black"
                   android:id="@+id/lastDate"/>
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
@@ -18,10 +19,12 @@
                           android:orientation="horizontal">
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
+                          android:textColor="@color/black"
                           android:background="@color/red100"
                           android:text="@string/quantityTotal"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
+                          android:textColor="@color/black"
                           android:background="@color/red100"
                           android:id="@+id/quantityHistory"/>
             </LinearLayout>
@@ -31,10 +34,12 @@
                           android:orientation="horizontal">
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
+                          android:textColor="@color/black"
                           android:background="@color/red100"
                           android:text="@string/priceTotal"/>
                 <TextView android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
+                          android:textColor="@color/black"
                           android:id="@+id/totalHistory"/>
             </LinearLayout>
         </LinearLayout>

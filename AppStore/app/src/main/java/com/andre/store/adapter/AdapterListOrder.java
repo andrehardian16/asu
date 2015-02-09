@@ -20,10 +20,12 @@ import java.util.ArrayList;
 public class AdapterListOrder extends BaseAdapter {
     Context context;
     ArrayList<ModelOrder> orderArrayAdapter = new ArrayList<ModelOrder>();
+    ArrayList<ModelOrder> filter = new ArrayList<ModelOrder>();
 
     public AdapterListOrder(Context context, ArrayList<ModelOrder> orderArrayList) {
         this.context = context;
         orderArrayAdapter = orderArrayList;
+        filter = orderArrayList;
     }
 
     @Override
@@ -63,4 +65,6 @@ public class AdapterListOrder extends BaseAdapter {
         }
         return view;
     }
+
+
 }

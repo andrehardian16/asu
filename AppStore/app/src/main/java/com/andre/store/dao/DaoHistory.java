@@ -39,6 +39,7 @@ public class DaoHistory extends BaseDao<ModelHistory> implements CursorData<Mode
         valuesData.put(ID_STORE, modelHistory.getIdStore());
         valuesData.put(ROW_QUANTITY, modelHistory.getQuantity());
         valuesData.put(ROW_TOTAL, modelHistory.getTotal());
+        valuesData.put(ROW_LAST_DATE,modelHistory.getLastDate());
         return valuesData;
 
     }

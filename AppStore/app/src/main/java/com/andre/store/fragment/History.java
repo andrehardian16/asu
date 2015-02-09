@@ -78,6 +78,7 @@ public class History extends Fragment implements AdapterView.OnItemClickListener
         Bundle bundle = new Bundle();
         bundle.putString("lastDate",last);
         bundle.putInt("idStore",id);
+        historyDetails.putExtras(bundle);
         startActivity(historyDetails);
     }
 }

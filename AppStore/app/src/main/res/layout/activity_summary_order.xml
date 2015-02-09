@@ -45,7 +45,10 @@
         </LinearLayout>
 
             <Button android:layout_width="@dimen/widthIcon"
-                    android:layout_height="@dimen/heightIcon" android:id="@+id/buyItem"/>
+                    android:layout_height="@dimen/heightIcon"
+                    android:text="@string/buy"
+                    android:textColor="@color/black"
+                    android:id="@+id/buyItem"/>
 
     </LinearLayout>
 

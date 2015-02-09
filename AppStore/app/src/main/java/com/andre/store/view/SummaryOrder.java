@@ -2,20 +2,17 @@ package com.andre.store.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.andre.store.adapter.AdapterOrder;
 import com.andre.store.adapter.AdapterSummary;
 import com.andre.store.dao.DaoDetailHistory;
 import com.andre.store.dao.DaoHistory;
-import com.andre.store.dao.DaoOrder;
 import com.andre.store.models.ModelDetailHistory;
 import com.andre.store.models.ModelHistory;
 import com.andre.store.models.ModelOrder;
@@ -41,7 +38,7 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
         summaryData = (ArrayList) getIntent().getSerializableExtra("buy");
         totalPriceItem = (TextView) findViewById(R.id.totalItemSummary);
         totalQuantityItem = (TextView) findViewById(R.id.quantityItemSummary);
-        buyItem = (Button)findViewById(R.id.buyItem);
+        buyItem = (Button) findViewById(R.id.buyItem);
         buyItem.setOnClickListener(this);
         summaryOrder(summaryData);
     }
@@ -64,16 +61,12 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
         adapterSummary.notifyDataSetChanged();
     }
 
-    private void onBuyItem(){
-
-    }
-
     @Override
     public void onClick(View view) {
-        onBuyItem();
+        alertBUy();
     }
 
-    private AlertDialog alertBUy(){
+    private void alertBUy() {
         AlertDialog.Builder alertBuyItem = new AlertDialog.Builder(this);
         alertBuyItem.setMessage(getString(R.string.buyItem));
         alertBuyItem.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
@@ -83,9 +76,9 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
                 String lastDate = calendar.getTime().toString();
                 modelHistory.setLastDate(lastDate);
                 modelHistory.setIdStore(summaryData.get(0).getIdStore());
-                createHiastory(modelHistory);
+                createHistory(modelHistory);
 
-                for (int pos =0;pos<summaryData.size();pos++){
+                for (int pos = 0; pos < summaryData.size(); pos++) {
                     modelDetailHistory.setIdStore(summaryData.get(pos).getIdStore());
                     modelDetailHistory.setQuantity(summaryData.get(pos).getQuantity());
                     modelDetailHistory.setPrice(summaryData.get(pos).getPrice());
@@ -94,7 +87,10 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
                     modelDetailHistory.setLastDate(lastDate);
                     createDetailHistory(modelDetailHistory);
                 }
-                Toast.makeText(getApplicationContext(),getString(R.string.success),Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_LONG);
+                Intent intent = new Intent(SummaryOrder.this,StoreActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         alertBuyItem.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -105,36 +101,35 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
         });
         AlertDialog dialog = alertBuyItem.create();
         dialog.show();
-        return dialog;
     }
 
-    private void createHiastory(ModelHistory modelHistory){
+    private void createHistory(ModelHistory modelHistory) {
         DaoHistory daoHistory = new DaoHistory(this);
 
         try {
             daoHistory.writeData();
-            try{
-                daoHistory.createData(daoHistory.tableName,daoHistory.setValuesData(modelHistory));
-            }finally {
+            try {
+                daoHistory.createData(daoHistory.tableName, daoHistory.setValuesData(modelHistory));
+            } finally {
                 daoHistory.close();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private void createDetailHistory(ModelDetailHistory modelDetailHistory){
+    private void createDetailHistory(ModelDetailHistory modelDetailHistory) {
         DaoDetailHistory daoDetailHistory = new DaoDetailHistory(this);
         try {
             daoDetailHistory.writeData();
             try {
-                daoDetailHistory.createData(daoDetailHistory.tableName,daoDetailHistory.
+                daoDetailHistory.createData(daoDetailHistory.tableName, daoDetailHistory.
                         setValuesData(modelDetailHistory));
-            }finally {
+            } finally {
                 daoDetailHistory.close();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -67,6 +67,10 @@
     <string name="buyItem">Do You Want To Buy Item ??</string>
     <string name="success">Success</string>
     <string name="rp">Rp . </string>
+    <string name="alertQuantity">Quantity Order</string>
+    <string name="buy">Buy</string>
+    <string name="qrCode">QRCode</string>
+    <string name="submit">submit</string>
 
     <string-array name="category">
         <item>Big Store</item>
