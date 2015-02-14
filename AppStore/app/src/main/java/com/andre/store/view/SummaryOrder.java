@@ -3,8 +3,11 @@ package com.andre.store.view;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.andre.store.adapter.AdapterSummary;
 import com.andre.store.dao.DaoDetailHistory;
 import com.andre.store.dao.DaoHistory;
+import com.andre.store.dao.DaoOrder;
 import com.andre.store.models.ModelDetailHistory;
 import com.andre.store.models.ModelHistory;
 import com.andre.store.models.ModelOrder;
@@ -29,6 +33,7 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
     Button buyItem;
     ModelHistory modelHistory = new ModelHistory();
     ModelDetailHistory modelDetailHistory = new ModelDetailHistory();
+    ModelOrder modelOrder = new ModelOrder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
         buyItem = (Button) findViewById(R.id.buyItem);
         buyItem.setOnClickListener(this);
         summaryOrder(summaryData);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.pink700)));
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void summaryOrder(ArrayList<ModelOrder> list) {
@@ -72,25 +80,36 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
         alertBuyItem.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Calendar calendar = Calendar.getInstance();
-                String lastDate = calendar.getTime().toString();
-                modelHistory.setLastDate(lastDate);
-                modelHistory.setIdStore(summaryData.get(0).getIdStore());
-                createHistory(modelHistory);
+                if (summaryData != null && summaryData.size() != 0) {
+                    Calendar calendar = Calendar.getInstance();
+                    String lastDate = calendar.getTime().toString();
+                    modelHistory.setLastDate(lastDate);
+                    modelHistory.setIdStore(summaryData.get(0).getIdStore());
+                    createHistory(modelHistory);
 
-                for (int pos = 0; pos < summaryData.size(); pos++) {
-                    modelDetailHistory.setIdStore(summaryData.get(pos).getIdStore());
-                    modelDetailHistory.setQuantity(summaryData.get(pos).getQuantity());
-                    modelDetailHistory.setPrice(summaryData.get(pos).getPrice());
-                    modelDetailHistory.setNameDetailHistory(summaryData.get(pos).getNameOrder());
-                    modelDetailHistory.setCode(summaryData.get(pos).getCode());
-                    modelDetailHistory.setLastDate(lastDate);
-                    createDetailHistory(modelDetailHistory);
+                    for (int pos = 0; pos < summaryData.size(); pos++) {
+                        modelDetailHistory.setIdStore(summaryData.get(pos).getIdStore());
+                        modelDetailHistory.setQuantity(summaryData.get(pos).getQuantity());
+                        modelDetailHistory.setPrice(summaryData.get(pos).getPrice());
+                        modelDetailHistory.setNameDetailHistory(summaryData.get(pos).getNameOrder());
+                        modelDetailHistory.setCode(summaryData.get(pos).getCode());
+                        modelDetailHistory.setLastDate(lastDate);
+                        createDetailHistory(modelDetailHistory);
+                    }
+                    for (int pos = 0; pos < summaryData.size(); pos++) {
+                        int stock = summaryData.get(pos).getStock() - summaryData.get(pos).getQuantity();
+                        modelOrder.setStock(stock);
+                        modelOrder.setId(summaryData.get(pos).getId());
+                        updateDataOrder(modelOrder);
+                    }
+                    Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_LONG);
+                    Intent intent = new Intent(SummaryOrder.this, StoreActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
-                Toast.makeText(getApplicationContext(), getString(R.string.success), Toast.LENGTH_LONG);
-                Intent intent = new Intent(SummaryOrder.this,StoreActivity.class);
-                startActivity(intent);
-                finish();
+                else{
+                    Toast.makeText(getApplicationContext(),getString(R.string.noData),Toast.LENGTH_SHORT).show();
+                }
             }
         });
         alertBuyItem.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -128,6 +147,36 @@ public class SummaryOrder extends ActionBarActivity implements View.OnClickListe
                         setValuesData(modelDetailHistory));
             } finally {
                 daoDetailHistory.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void updateDataOrder(ModelOrder modelOrder) {
+        DaoOrder daoOrder = new DaoOrder(this);
+        try {
+            daoOrder.writeData();
+            try {
+                daoOrder.updateData(daoOrder.tableName, daoOrder.valuesUpdate(modelOrder), daoOrder.ID_ORDER,
+                        modelOrder.getId());
+            } finally {
+                daoOrder.close();
             }
         } catch (Exception e) {
             e.printStackTrace();

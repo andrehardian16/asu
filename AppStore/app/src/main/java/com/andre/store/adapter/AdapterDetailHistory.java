@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.andre.store.models.ModelDetailHistory;
-import com.andre.store.view.DetailHistory;
 import com.andre.store.view.R;
 
 import java.util.ArrayList;

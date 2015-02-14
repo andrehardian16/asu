@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/red50">
+              android:background="@drawable/list_click">
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal">
@@ -60,13 +60,13 @@
                           android:textColor="@color/black"/>
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout android:layout_width="100dp"
+        <LinearLayout android:layout_width="wrap_content"
                       android:layout_height="match_parent"
                       android:orientation="vertical"
                       android:gravity="center">
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:background="@color/black"
+                      android:background="@color/white"
                       android:id="@+id/quantityOrder"
                       android:textAppearance="?android:attr/textAppearanceLarge"
                     />
@@ -86,7 +86,7 @@
                   android:orientation="horizontal">
         <Button android:layout_width="@dimen/widthIcon"
                 android:layout_height="@dimen/heightIcon"
-                android:background="@drawable/delete"
+                android:background="@drawable/custom_delete"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:id="@+id/delOrder"/>
@@ -104,6 +104,14 @@
                       android:id="@+id/buy"
                       android:text="rp.00  "/>
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:background="@color/white"
+                  android:orientation="vertical">
+        <View android:layout_width="match_parent"
+              android:layout_height="5dp"
+              style="?android:attr/dividerHorizontal"></View>
     </LinearLayout>
 
 </LinearLayout>

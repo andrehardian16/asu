@@ -8,9 +8,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.*;
 import com.andre.store.adapter.AdapterCategory;
@@ -19,11 +20,16 @@ import com.andre.store.dao.DaoEmployee;
 import com.andre.store.dao.DaoImage;
 import com.andre.store.dao.DaoStore;
 import com.andre.store.gps.GpsTracker;
-import com.andre.store.models.*;
+import com.andre.store.models.ModelCategory;
+import com.andre.store.models.ModelEmployee;
+import com.andre.store.models.ModelImages;
+import com.andre.store.models.ModelStore;
 import com.andre.store.sessions.SessionUser;
+import com.google.zxing.client.result.EmailAddressParsedResult;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 
 public class AdditionalStore extends ActionBarActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -90,6 +96,7 @@ public class AdditionalStore extends ActionBarActivity implements View.OnClickLi
                 if (modelCategories != null) {
                     AdapterCategory adapterCategory = new AdapterCategory(AdditionalStore.this, modelCategories);
                     category.setAdapter(adapterCategory);
+
                 }
             }
         }.execute();
@@ -140,27 +147,6 @@ public class AdditionalStore extends ActionBarActivity implements View.OnClickLi
 
 
     private void createDataStore() {
-        Calendar calendar = Calendar.getInstance();
-        GpsTracker gpsTracker = new GpsTracker(this);
-        SessionUser sessionUser = new SessionUser(this);
-        if (storeName.length() == 0){
-            storeName.setError(getString(R.string.insertStoreName));
-        }else {
-            modelStore.setIdUser(sessionUser.getId());
-            modelStore.setStoreName(storeName.getText().toString());
-            modelStore.setPhone(phoneStore.getText().toString());
-            modelStore.setLastVisit(calendar.getTime().toString());
-            modelStore.setEmail(emailStore.getText().toString());
-            modelStore.setAddress(addressStore.getText().toString());
-            if (gpsTracker.canGetLocation()) {
-                modelStore.setLatitude(gpsTracker.getLatitude());
-                modelStore.setLongitude(gpsTracker.getLongitude());
-            } else {
-                gpsTracker.showSettingAlert();
-            }
-            gpsTracker.stopUsingGPS();
-
-
             ModelStore store = new ModelStore();
 
             store.setIdStore(insertStore(modelStore).intValue());
@@ -182,7 +168,6 @@ public class AdditionalStore extends ActionBarActivity implements View.OnClickLi
             } else {
                 Toast.makeText(getApplicationContext(), "images n employee no insert", Toast.LENGTH_SHORT).show();
             }
-        }
 
     }
 
@@ -225,10 +210,7 @@ public class AdditionalStore extends ActionBarActivity implements View.OnClickLi
                 dialogPict();
                 break;
             case R.id.save_button:
-                createDataStore();
-                Intent store = new Intent(this, StoreActivity.class);
-                startActivity(store);
-                finish();
+                save();
                 break;
         }
     }
@@ -280,11 +262,51 @@ public class AdditionalStore extends ActionBarActivity implements View.OnClickLi
         alertDialog.show();
 
     }
+
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
-        Intent back = new Intent(this,StoreActivity.class);
+        Intent back = new Intent(this, StoreActivity.class);
         startActivity(back);
         finish();
+    }
+
+    private Boolean validationMail(CharSequence email) {
+//        final String EmailPattern = "^[_A-Za-z0-9]+(\\.[_A-Za-z0-9]+)*@[_A-Za-z0-9]+(\\.[A-Za-z0-9])*(\\.[A-Za-z0-9]{0,2})$";
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
+    }
+
+    private void save() {
+        Calendar calendar = Calendar.getInstance();
+        GpsTracker gpsTracker = new GpsTracker(this);
+        SessionUser sessionUser = new SessionUser(this);
+        if (storeName.length() == 0) {
+            storeName.setError(getString(R.string.insertStoreName));
+        } else {
+            modelStore.setIdUser(sessionUser.getId());
+            modelStore.setStoreName(storeName.getText().toString());
+            modelStore.setPhone(phoneStore.getText().toString());
+            modelStore.setLastVisit(calendar.getTime().toString());
+            modelStore.setEmail(emailStore.getText().toString());
+            modelStore.setAddress(addressStore.getText().toString());
+            if (gpsTracker.canGetLocation()) {
+                modelStore.setLatitude(gpsTracker.getLatitude());
+                modelStore.setLongitude(gpsTracker.getLongitude());
+            } else {
+                gpsTracker.showSettingAlert();
+            }
+            gpsTracker.stopUsingGPS();
+        }
+
+
+            if (!validationMail(modelStore.getEmail())) {
+            Toast.makeText(getApplicationContext(), getString(R.string.notValid), Toast.LENGTH_SHORT).show();
+        } else {
+            createDataStore();
+            Intent store = new Intent(this, StoreActivity.class);
+            startActivity(store);
+            finish();
+        }
     }
 }

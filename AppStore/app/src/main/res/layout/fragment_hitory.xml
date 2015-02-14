@@ -2,11 +2,14 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
+             android:background="@color/white"
              tools:context="com.andre.store.fragment.History">
 
     <!-- TODO: Update blank fragment layout -->
     <ListView android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:drawSelectorOnTop="false"
+              android:listSelector="@color/lightGreen100"
               android:id="@+id/listHistory"></ListView>
 
 </FrameLayout>

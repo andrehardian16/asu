@@ -37,9 +37,16 @@ public class StoreActivity extends ActionBarActivity implements AdapterView.OnIt
         listStore = (ListView) findViewById(R.id.list_store);
         listStore.setOnItemClickListener(this);
         listStore.setOnItemLongClickListener(this);
+   /*     listStore.requestFocusFromTouch();
+        listStore.setFocusable(true);
+        listStore.setFocusableInTouchMode(true);
+   */
+//        listStore.setCacheColorHint(0);
+//        listStore.setSelector(new ColorDrawable(getResources().getColor(R.color.red100)));
+        listStore.setSelector(android.R.color.transparent);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.red100)));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.pink700)));
 
         refreshList();
     }
@@ -62,6 +69,8 @@ public class StoreActivity extends ActionBarActivity implements AdapterView.OnIt
         Intent detailStore = new Intent(this, DetailStore.class);
         ModelStore modelStore = (ModelStore) listStore.getAdapter().getItem(i);
 
+        listStore.setSelection(i);
+        listStore.setItemChecked(i,true);
         Bundle detail = new Bundle();
         detail.putSerializable("model", modelStore);
         detailStore.putExtras(detail);
@@ -177,6 +186,8 @@ public class StoreActivity extends ActionBarActivity implements AdapterView.OnIt
 
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int pos, long l) {
+//        listStore.setSelection(pos);
+//        listStore.isItemChecked(pos);
         AlertDialog.Builder alertDelete = new AlertDialog.Builder(this);
         alertDelete.setMessage(getString(R.string.delete));
         alertDelete.setCancelable(true);

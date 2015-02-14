@@ -7,10 +7,11 @@ import com.andre.store.interfaceData.InterfaceSetModel;
  * Created by Andre on 1/23/2015.
  */
 public class ResourceCursor implements InterfaceSetModel {
-private Cursor cursor;
+    private Cursor cursor;
+
     @Override
     public void setCursor(Cursor cursor) {
-        this.cursor=cursor;
+        this.cursor = cursor;
     }
 
     @Override

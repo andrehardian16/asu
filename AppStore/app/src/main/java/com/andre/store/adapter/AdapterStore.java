@@ -77,10 +77,10 @@ public class AdapterStore extends BaseAdapter {
             } else {
                 imageStoreList.setImageResource(R.drawable.image_empty);
             }
-            nameStore.setText(view.getResources().getString(R.string.storeName) + " : " + listStore.get(i).getStoreName());
-            addressStore.setText(view.getResources().getString(R.string.address) + " : " + listStore.get(i).getAddress());
-            lastVisit.setText(view.getResources().getString(R.string.lastVisit) + " : " + listStore.get(i).getLastVisit());
-            categoryStore.setText(view.getResources().getString(R.string.category) + " : " + listStore.get(i).getCategoryStore());
+            nameStore.setText(view.getResources().getString(R.string.storeName) + "        : " + listStore.get(i).getStoreName());
+            addressStore.setText(view.getResources().getString(R.string.address) + "               : " + listStore.get(i).getAddress());
+            lastVisit.setText(view.getResources().getString(R.string.lastVisit) + "             : " + listStore.get(i).getLastVisit());
+            categoryStore.setText(view.getResources().getString(R.string.category) + "  : " + listStore.get(i).getCategoryStore());
         }
 
         return view;

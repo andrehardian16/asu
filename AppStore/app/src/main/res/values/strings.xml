@@ -18,6 +18,8 @@
     <string name="pass">Password</string>
     <string name="alert_login_pass">incorrect password</string>
     <string name="alert_user_not_register">wrong username</string>
+    <string name="notValid">Data Not Valid!</string>
+    <string name="sold">Item Sold Out</string>
     <string name="register">Register</string>
     <string name="title_activity_regist">Register</string>
     <string name="title_activity_additional_store">AdditionalStore</string>
@@ -56,21 +58,22 @@
     <string name="change_category">Change Category</string>
     <string name="old">Old Category</string>
     <string name="newCat">New Category</string>
-    <string name="code">Code    : </string>
-    <string name="name">Name   : </string>
-    <string name="stock">Stock  : </string>
-    <string name="price">Price  : </string>
-    <string name="quantity">Quantity : </string>
+    <string name="code">Code :</string>
+    <string name="name">Name :</string>
+    <string name="stock">Stock :</string>
+    <string name="price">Price :</string>
+    <string name="quantity">Quantity :</string>
     <string name="quantityTotal">Total Quantity :</string>
     <string name="priceTotal">Total Price :</string>
     <string name="alertAddItem">Data is exist</string>
     <string name="buyItem">Do You Want To Buy Item ??</string>
     <string name="success">Success</string>
-    <string name="rp">Rp . </string>
+    <string name="rp">Rp .</string>
     <string name="alertQuantity">Quantity Order</string>
     <string name="buy">Buy</string>
     <string name="qrCode">QRCode</string>
     <string name="submit">submit</string>
+    <string name="outStock">Order Out Of Stock</string>
 
     <string-array name="category">
         <item>Big Store</item>
@@ -92,22 +95,31 @@
         <item>123</item>
         <item>234</item>
         <item>345</item>
+        <item>456</item>
+        <item>567</item>
     </string-array>
     <string-array name="nameOrder">
         <item>Sepeda</item>
         <item>Motor</item>
         <item>Baju</item>
+        <item>Celana</item>
+        <item>Jacket</item>
     </string-array>
 
     <integer-array name="stock">
         <item>10</item>
         <item>55</item>
         <item>70</item>
+        <item>50</item>
+        <item>60</item>
     </integer-array>
+
     <integer-array name="price">
         <item>1000000</item>
         <item>20000000</item>
         <item>200000</item>
+        <item>200000</item>
+        <item>400000</item>
     </integer-array>
 
     <string name="title_activity_zbar">ZBarActivity</string>

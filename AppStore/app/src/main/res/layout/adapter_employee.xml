@@ -22,7 +22,7 @@
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:background="#000000"
+                  android:background="@color/black"
                   android:orientation="vertical">
         <View android:layout_width="match_parent"
               android:layout_height="2dp"
@@ -35,11 +35,11 @@
         <Button android:layout_width="@dimen/widthIcon"
                 android:layout_height="@dimen/heightIcon"
                 android:id="@+id/editEmployee"
-                android:background="@drawable/edit"/>
+                android:background="@drawable/custom_edit"/>
         <Button android:layout_width="@dimen/widthIcon"
                 android:layout_height="@dimen/heightIcon"
                 android:id="@+id/deleteEmployee"
-                android:background="@drawable/delete"/>
+                android:background="@drawable/custom_delete"/>
     </LinearLayout>
 
 </LinearLayout>

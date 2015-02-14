@@ -5,11 +5,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.andre.store.models.ModelOrder;
-import com.andre.store.view.Order;
 import com.andre.store.view.R;
 
 import java.util.ArrayList;
@@ -58,10 +56,10 @@ public class AdapterListOrder extends BaseAdapter {
         priceOrder = (TextView) view.findViewById(R.id.priceListOrder);
 
         if (orderArrayAdapter != null) {
-                codeOrder.setText(orderArrayAdapter.get(i).getCode());
-                stockOrder.setText(""+orderArrayAdapter.get(i).getStock());
-                nameOrder.setText(orderArrayAdapter.get(i).getNameOrder());
-                priceOrder.setText(""+orderArrayAdapter.get(i).getPrice());
+            codeOrder.setText(orderArrayAdapter.get(i).getCode());
+            stockOrder.setText("" + orderArrayAdapter.get(i).getStock());
+            nameOrder.setText(orderArrayAdapter.get(i).getNameOrder());
+            priceOrder.setText("" + orderArrayAdapter.get(i).getPrice());
         }
         return view;
     }

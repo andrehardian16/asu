@@ -42,6 +42,11 @@ public class DaoOrder extends BaseDao<ModelOrder> implements CursorData<ModelOrd
 
         return valuesData;
     }
+    public ContentValues valuesUpdate(ModelOrder modelOrder){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ROW_STOCK,modelOrder.getStock());
+        return contentValues;
+    }
 
     @Override
     public Long createData(String tableName, ContentValues contentValues) {

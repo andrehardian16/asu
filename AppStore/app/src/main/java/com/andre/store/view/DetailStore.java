@@ -21,6 +21,7 @@ import com.andre.store.map.MapsActivity;
 import com.andre.store.models.ModelEmployee;
 import com.andre.store.models.ModelStore;
 
+
 import java.util.ArrayList;
 
 
@@ -35,7 +36,7 @@ public class DetailStore extends ActionBarActivity implements TabHost.OnTabChang
         setContentView(R.layout.activity_detail_store);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.red100)));
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.pink700)));
         setTitle(getString(R.string.detail));
         tabHost = (FragmentTabHost) findViewById(R.id.tabHost);
 
@@ -75,17 +76,6 @@ public class DetailStore extends ActionBarActivity implements TabHost.OnTabChang
         MenuItem editStore = menu.findItem(R.id.editStore);
         MenuItem order = menu.findItem(R.id.order);
 
-        if (getTitle().toString().equals(R.string.history)) {
-            addEmployee.setVisible(false);
-            maps.setVisible(false);
-            editStore.setVisible(false);
-            order.setVisible(false);
-        } else {
-            addEmployee.setVisible(true);
-            maps.setVisible(true);
-            editStore.setVisible(true);
-            order.setVisible(true);
-        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -114,7 +104,11 @@ public class DetailStore extends ActionBarActivity implements TabHost.OnTabChang
                 finish();
                 break;
             case R.id.maps:
+                ModelStore modelLatLong = (ModelStore) getIntent().getSerializableExtra("model");
                 Intent mapAct = new Intent(this, MapsActivity.class);
+                Bundle latlong = new Bundle();
+                latlong.putSerializable("modelLatLong",modelLatLong);
+                mapAct.putExtras(latlong);
                 startActivity(mapAct);
         }
         return super.onOptionsItemSelected(item);
@@ -127,7 +121,7 @@ public class DetailStore extends ActionBarActivity implements TabHost.OnTabChang
         final EditText position = (EditText) addEdit.findViewById(R.id.positionEmployeeInsert);
         final EditText phone = (EditText) addEdit.findViewById(R.id.phoneEmployeeInsert);
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setMessage(getString(R.string.insertData));
+        alert.setTitle(getString(R.string.insertData));
         alert.setView(addEdit);
         alert.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override

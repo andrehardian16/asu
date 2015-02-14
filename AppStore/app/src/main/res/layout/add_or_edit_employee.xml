@@ -70,6 +70,7 @@
                   android:id="@+id/phoneEmployeeInsert"
                   android:textColorHint="@color/black"
                   android:hint="@string/phone"
+                  android:inputType="phone"
                   android:layout_height="wrap_content"/>
     </LinearLayout>
 

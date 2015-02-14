@@ -2,10 +2,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              android:paddingBottom="@dimen/activity_vertical_margin"
+              android:background="@color/white"
               android:orientation="vertical"
               tools:context="com.andre.store.view.Order">
     <LinearLayout android:layout_width="match_parent"
@@ -23,7 +20,7 @@
                   android:layout_weight="1"/>
         <Button android:layout_width="@dimen/widthIcon"
                 android:layout_height="@dimen/heightIcon"
-                android:background="@drawable/search"
+                android:background="@drawable/custom_search"
                 android:id="@+id/btnSearch"/>
     </LinearLayout>
     <LinearLayout android:layout_width="wrap_content"

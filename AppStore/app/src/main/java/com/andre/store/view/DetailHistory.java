@@ -1,5 +1,6 @@
 package com.andre.store.view;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ public class DetailHistory extends ActionBarActivity {
         setContentView(R.layout.activity_detail_history);
         listDetailHistory = (ListView) findViewById(R.id.listDetailHistory);
         dataDetail();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.pink700)));
     }
 
 
@@ -59,5 +63,20 @@ public class DetailHistory extends ActionBarActivity {
                 }
             }
         }.execute();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

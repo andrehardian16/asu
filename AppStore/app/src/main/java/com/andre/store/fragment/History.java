@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.andre.store.adapter.AdapterHistory;
@@ -30,29 +29,29 @@ public class History extends Fragment implements AdapterView.OnItemClickListener
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_hitory, container, false);
-        listHistory = (ListView)view.findViewById(R.id.listHistory);
+        listHistory = (ListView) view.findViewById(R.id.listHistory);
         dataHistory();
         listHistory.setOnItemClickListener(this);
         return view;
     }
 
-    private void adapter(ArrayList<ModelHistory> historyData){
-        AdapterHistory adapterHistory = new AdapterHistory(getActivity(),historyData);
+    private void adapter(ArrayList<ModelHistory> historyData) {
+        AdapterHistory adapterHistory = new AdapterHistory(getActivity(), historyData);
         listHistory.setAdapter(adapterHistory);
         adapterHistory.notifyDataSetChanged();
     }
 
-    private void dataHistory(){
+    private void dataHistory() {
         new AsyncTask<Void, Void, ArrayList<ModelHistory>>() {
             @Override
             protected ArrayList<ModelHistory> doInBackground(Void... voids) {
                 DaoHistory daoHistory = new DaoHistory(getActivity());
-                try{
+                try {
                     daoHistory.readData();
-                    return daoHistory.getAllData(daoHistory.tableName,daoHistory.allColumns);
-                }catch (Exception e){
+                    return daoHistory.getAllData(daoHistory.tableName, daoHistory.allColumns);
+                } catch (Exception e) {
                     e.printStackTrace();
-                }finally {
+                } finally {
                     daoHistory.close();
                 }
                 return null;
@@ -60,7 +59,7 @@ public class History extends Fragment implements AdapterView.OnItemClickListener
 
             @Override
             protected void onPostExecute(ArrayList<ModelHistory> modelHistories) {
-                if (modelHistories != null && modelHistories.size() != 0 ){
+                if (modelHistories != null && modelHistories.size() != 0) {
                     adapter(modelHistories);
                 }
             }
@@ -69,15 +68,15 @@ public class History extends Fragment implements AdapterView.OnItemClickListener
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ModelHistory modelHistory = (ModelHistory)listHistory.getAdapter().getItem(i);
-        historyDetail(modelHistory.getLastDate(),modelHistory.getIdStore());
+        ModelHistory modelHistory = (ModelHistory) listHistory.getAdapter().getItem(i);
+        historyDetail(modelHistory.getLastDate(), modelHistory.getIdStore());
     }
 
-    private void historyDetail(String last,int id){
+    private void historyDetail(String last, int id) {
         Intent historyDetails = new Intent(getActivity(), DetailHistory.class);
         Bundle bundle = new Bundle();
-        bundle.putString("lastDate",last);
-        bundle.putInt("idStore",id);
+        bundle.putString("lastDate", last);
+        bundle.putInt("idStore", id);
         historyDetails.putExtras(bundle);
         startActivity(historyDetails);
     }

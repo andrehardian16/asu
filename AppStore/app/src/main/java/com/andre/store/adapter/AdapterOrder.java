@@ -59,12 +59,15 @@ public class AdapterOrder extends BaseAdapter{
         stockOrder = (TextView) view.findViewById(R.id.stockOrder);
         quantityOrder = (TextView) view.findViewById(R.id.quantityOrder);
         buyOrder = (TextView) view.findViewById(R.id.buy);
-        delOrder = (Button)view.findViewById(R.id.delOrder);
+        delOrder = (Button) view.findViewById(R.id.delOrder);
         delOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 orderArrayList.remove(i);
+                Order order = new Order();
+                order.allOrder(orderArrayList);
                 notifyDataSetChanged();
+
             }
         });
 
@@ -73,7 +76,7 @@ public class AdapterOrder extends BaseAdapter{
             nameOrder.setText(orderArrayList.get(i).getNameOrder());
             priceOrder.setText("" + orderArrayList.get(i).getPrice());
             stockOrder.setText("" + orderArrayList.get(i).getStock());
-            quantityOrder.setText(""+orderArrayList.get(i).getQuantity());
+            quantityOrder.setText("" + orderArrayList.get(i).getQuantity());
             int buy = (Integer.parseInt(quantityOrder.getText().toString().trim()))
                     * (Integer.parseInt(priceOrder.getText().toString().trim()));
             buyOrder.setText(context.getString(R.string.rp) + buy + ",00");
@@ -82,8 +85,5 @@ public class AdapterOrder extends BaseAdapter{
         }
         return view;
     }
-
-
-
 
 }

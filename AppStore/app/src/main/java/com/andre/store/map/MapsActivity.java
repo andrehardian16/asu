@@ -3,7 +3,9 @@ package com.andre.store.map;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
+import com.andre.store.models.ModelStore;
 import com.andre.store.view.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -61,6 +63,11 @@ public class MapsActivity extends FragmentActivity {
      * This should only be called once and when we are sure that {@link #mMap} is not null.
      */
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        ModelStore latLong = (ModelStore)getIntent().getSerializableExtra("modelLatLong");
+        LatLng locationStore = new LatLng(latLong.getLatitude(),latLong.getLongitude());
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(locationStore,13));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(latLong.getLatitude(),latLong.getLongitude())).
+                title(latLong.getStoreName()));
+        mMap.setMyLocationEnabled(true);
     }
 }

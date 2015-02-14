@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.andre.store.adapter.AdapterCategory;
@@ -27,6 +30,7 @@ import com.andre.store.models.ModelImages;
 import com.andre.store.models.ModelStore;
 import com.andre.store.sessions.SessionUser;
 
+import java.lang.Override;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -46,8 +50,6 @@ public class EditStore extends ActionBarActivity implements View.OnClickListener
     ModelImages modelImages = new ModelImages();
 
 
-
-
     private static int RESULT_LOAD_IMAGE = 1;
 
     @Override
@@ -58,13 +60,15 @@ public class EditStore extends ActionBarActivity implements View.OnClickListener
         addressStoreEdit = (EditText) findViewById(R.id.address_edit);
         phoneStoreEdit = (EditText) findViewById(R.id.phone_edit);
         emailStoreEdit = (EditText) findViewById(R.id.email_edit);
-        oldCategory = (EditText)findViewById(R.id.oldCategory);
+        oldCategory = (EditText) findViewById(R.id.oldCategory);
         imageStoreEdit = (ImageView) findViewById(R.id.imageEdit);
         categoryEdit = (Spinner) findViewById(R.id.spinner_category);
-        saveDataStoreEdit = (Button)findViewById(R.id.save_buttonEdit);
+        saveDataStoreEdit = (Button) findViewById(R.id.save_buttonEdit);
 
-       modelStore = (ModelStore) getIntent().getSerializableExtra("model");
-
+        modelStore = (ModelStore) getIntent().getSerializableExtra("model");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.pink700)));
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         imageStoreEdit.setOnClickListener(this);
         saveDataStoreEdit.setOnClickListener(this);
         categoryEdit.setOnItemSelectedListener(this);
@@ -171,7 +175,6 @@ public class EditStore extends ActionBarActivity implements View.OnClickListener
         updateImage(modelImages);
 
 
-
     }
 
     private void updateStore(ModelStore modelStore) {
@@ -202,7 +205,7 @@ public class EditStore extends ActionBarActivity implements View.OnClickListener
                 Intent detail = new Intent(this, DetailStore.class);
                 Bundle dataStore = new Bundle();
 
-                dataStore.putSerializable("model",modelStore);
+                dataStore.putSerializable("model", modelStore);
                 detail.putExtras(dataStore);
                 startActivity(detail);
                 finish();
@@ -261,15 +264,33 @@ public class EditStore extends ActionBarActivity implements View.OnClickListener
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    private void back(){
         Intent back = new Intent(this, DetailStore.class);
         Bundle dataStore = new Bundle();
-        dataStore.putSerializable("model",modelStore);
+        dataStore.putSerializable("model", modelStore);
         back.putExtras(dataStore);
         startActivity(back);
         finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        back();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                back();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }

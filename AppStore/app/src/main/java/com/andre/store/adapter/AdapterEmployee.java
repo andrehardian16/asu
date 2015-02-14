@@ -108,7 +108,7 @@ public class AdapterEmployee extends BaseAdapter {
         final EditText position = (EditText) addEdit.findViewById(R.id.positionEmployeeInsert);
         final EditText phone = (EditText) addEdit.findViewById(R.id.phoneEmployeeInsert);
         AlertDialog.Builder alert = new AlertDialog.Builder(context);
-        alert.setMessage(context.getString(R.string.editData));
+        alert.setTitle(context.getString(R.string.editData));
         nameEmployee.setText(modelEmployees.get(pos).getNameEmployee());
         position.setText(modelEmployees.get(pos).getPosition());
         phone.setText(modelEmployees.get(pos).getPhone());
